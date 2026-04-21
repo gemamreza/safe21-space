@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand:       #6355D8;
+  --brand-dark:  #3730A3;
+  --brand-light: #F0EFFE;
+  --sage:        #2D8A6A;
+  --sage-light:  #F0F7F4;
+  --peach:       #C45830;
+  --peach-light: #FEF3ED;
+  --ink:         #0F0E1A;
+  --ink-muted:   #6B6880;
+  --surface:     #FFFFFF;
+  --surface-2:   #F8F7FF;
+  --border:      rgba(99,85,216,0.12);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.animate-fade-up, .animate-fade-in { opacity: 0; }
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+.blob { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface-2); }
+::-webkit-scrollbar-thumb { background: #DDD9FC; border-radius: 3px; }
