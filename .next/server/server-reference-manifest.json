@@ -1,5 +1,22 @@
 {
-  "node": {},
+  "node": {
+    "162104ef7a5ce5daa712ade9cea73c5ff024e193": {
+      "workers": {
+        "app/forum/[id]/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fgemamuhammadreza%2FDocuments%2FGema%2FDSIndonesia-multipages%2Fds-indonesia%2Fsrc%2Fapp%2Factions%2Fforum.ts%22%2C%5B%22createComment%22%2C%22createThread%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/forum/[id]/page": "action-browser"
+      }
+    },
+    "5c154463e1b0d67580429b4b9b0018d4b8aeb8fe": {
+      "workers": {
+        "app/forum/[id]/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fgemamuhammadreza%2FDocuments%2FGema%2FDSIndonesia-multipages%2Fds-indonesia%2Fsrc%2Fapp%2Factions%2Fforum.ts%22%2C%5B%22createComment%22%2C%22createThread%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/forum/[id]/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
-  "encryptionKey": "kbqwI3EC7x2GnMjc0dOK2DwWZWorIJUsEJVf5gfdHRo="
+  "encryptionKey": "ZfYu482IhFOABlIC/9cO+gxe1fuNIUBGGSIkQ5r3AoQ="
 }
