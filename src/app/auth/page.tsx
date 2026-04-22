@@ -21,6 +21,7 @@ export default function AuthPage() {
 
   const [form, setForm] = useState({
     fullName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -76,6 +77,10 @@ export default function AuthPage() {
         setError("Password minimal 8 karakter.");
         return;
       }
+      if (!/^[a-zA-Z0-9_]{3,20}$/.test(form.username)) {
+        setError("Username hanya boleh huruf, angka, dan underscore. Minimal 3 karakter.");
+        return;
+      }
     }
 
     setLoading(true);
@@ -84,7 +89,7 @@ export default function AuthPage() {
       const { error } = await supabase.auth.signUp({
         email: form.email,
         password: form.password,
-        options: { data: { full_name: form.fullName } },
+        options: { data: { full_name: form.fullName, username: form.username } },
       });
       if (error) {
         setError(error.message);
@@ -92,7 +97,7 @@ export default function AuthPage() {
       } else {
         setSuccess("Pendaftaran berhasil! Silakan login.");
         setMode("login");
-        setForm({ fullName: "", email: form.email, password: "", confirmPassword: "" });
+        setForm({ fullName: "", username: "", email: form.email, password: "", confirmPassword: "" });
         setLoading(false);
       }
     } else {
@@ -116,7 +121,7 @@ export default function AuthPage() {
     setMode(m);
     setError(null);
     setSuccess(null);
-    setForm({ fullName: "", email: "", password: "", confirmPassword: "" });
+    setForm({ fullName: "", username: "", email: "", password: "", confirmPassword: "" });
   };
 
   // Tampilkan full-screen loader saat redirecting
@@ -213,6 +218,26 @@ export default function AuthPage() {
                   required
                   className="text-[14px] px-4 py-2.5 rounded-xl border border-[var(--border)] focus:outline-none focus:border-[var(--brand)] text-[var(--ink)] placeholder:text-[var(--ink-muted)] bg-white transition-colors"
                 />
+              </div>
+            )}
+
+            {mode === "signup" && (
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-medium text-[var(--ink)]">Username</label>
+                <div className="flex items-center border border-[var(--border)] rounded-xl focus-within:border-[var(--brand)] transition-colors overflow-hidden">
+                  <span className="px-3 py-2.5 text-[14px] text-[var(--ink-muted)] bg-[var(--surface-2)] border-r border-[var(--border)]">@</span>
+                  <input
+                    type="text"
+                    name="username"
+                    value={form.username}
+                    onChange={(e) => setForm({ ...form, username: e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, "") })}
+                    placeholder="username_kamu"
+                    required
+                    maxLength={20}
+                    className="flex-1 text-[14px] px-3 py-2.5 focus:outline-none text-[var(--ink)] placeholder:text-[var(--ink-muted)] bg-white"
+                  />
+                </div>
+                <p className="text-[11px] text-[var(--ink-muted)]">Hanya huruf kecil, angka, underscore. 3–20 karakter.</p>
               </div>
             )}
 

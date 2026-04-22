@@ -18,7 +18,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [profileName, setProfileName] = useState<string | null>(null);
+  const [profile, setProfile] = useState<{ full_name: string | null; username: string | null } | null>(null);
   const pathname = usePathname();
   const router = useRouter();
   const isHome = pathname === "/";
@@ -36,16 +36,16 @@ export default function Navbar() {
       if (user) {
         supabase
           .from("profiles")
-          .select("full_name")
+          .select("full_name, username")
           .eq("id", user.id)
           .single()
-          .then(({ data }) => setProfileName(data?.full_name ?? null));
+          .then(({ data }) => setProfile(data));
       }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      if (!session?.user) setProfileName(null);
+      if (!session?.user) setProfile(null);
     });
 
     return () => subscription.unsubscribe();
@@ -54,7 +54,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);
-    setProfileName(null);
+    setProfile(null);
     router.push("/");
     router.refresh();
   };
@@ -64,15 +64,17 @@ export default function Navbar() {
     return name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
   }
 
+  const displayName = profile?.full_name ?? user?.email ?? null;
+  const displayUsername = profile?.username ? `@${profile.username}` : null;
+
   const navBg = isHome
-    ? scrolled
-      ? "bg-white/90 backdrop-blur-md border-b border-[var(--border)]"
-      : "bg-transparent"
+    ? scrolled ? "bg-white/90 backdrop-blur-md border-b border-[var(--border)]" : "bg-transparent"
     : "bg-white border-b border-[var(--border)]";
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full bg-[var(--brand)] flex items-center justify-center flex-shrink-0">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -85,77 +87,90 @@ export default function Navbar() {
           </span>
         </Link>
 
+        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
           {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
+            <Link key={l.href} href={l.href}
               className={`text-[13px] px-3 py-2 rounded-lg transition-all duration-200 ${
                 pathname === l.href
                   ? "bg-[var(--brand-light)] text-[var(--brand-dark)] font-medium"
                   : "text-[var(--ink-muted)] hover:text-[var(--ink)] hover:bg-[var(--brand-light)]"
               }`}
-            >
-              {l.label}
-            </Link>
+            >{l.label}</Link>
           ))}
         </div>
 
+        {/* Desktop auth */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <>
               <NotificationBell userId={user.id} />
-              <div className="flex items-center gap-2">
+              <Link href="/profil" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                 <div className="w-8 h-8 rounded-full bg-[var(--brand-light)] text-[var(--brand-dark)] flex items-center justify-center text-[12px] font-medium">
-                  {getInitials(profileName ?? user.email ?? null)}
+                  {getInitials(displayName)}
                 </div>
-                <span className="text-[13px] text-[var(--ink)] font-medium max-w-[120px] truncate">
-                  {profileName ?? user.email}
-                </span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="text-[13px] text-[var(--ink-muted)] px-4 py-2 rounded-lg border border-[var(--border)] hover:border-red-300 hover:text-red-500 transition-all duration-200"
-              >
+                <div className="flex flex-col">
+                  <span className="text-[13px] text-[var(--ink)] font-medium max-w-[100px] truncate leading-tight">{displayName}</span>
+                  {displayUsername && <span className="text-[11px] text-[var(--ink-muted)] leading-tight">{displayUsername}</span>}
+                </div>
+              </Link>
+              <button onClick={handleLogout}
+                className="text-[13px] text-[var(--ink-muted)] px-4 py-2 rounded-lg border border-[var(--border)] hover:border-red-300 hover:text-red-500 transition-all duration-200">
                 Keluar
               </button>
             </>
           ) : (
             <>
-              <Link href="/auth" className="text-[13px] text-[var(--ink-muted)] hover:text-[var(--ink)] px-4 py-2 rounded-lg border border-[var(--border)] hover:border-[var(--brand)] transition-all duration-200">
-                Masuk
-              </Link>
-              <Link href="/auth" className="text-[13px] font-medium text-white bg-[var(--brand)] hover:bg-[var(--brand-dark)] px-4 py-2 rounded-lg transition-all duration-200">
-                Bergabung gratis
-              </Link>
+              <Link href="/auth" className="text-[13px] text-[var(--ink-muted)] hover:text-[var(--ink)] px-4 py-2 rounded-lg border border-[var(--border)] hover:border-[var(--brand)] transition-all duration-200">Masuk</Link>
+              <Link href="/auth" className="text-[13px] font-medium text-white bg-[var(--brand)] hover:bg-[var(--brand-dark)] px-4 py-2 rounded-lg transition-all duration-200">Bergabung gratis</Link>
             </>
           )}
         </div>
 
-        <button
-          className="md:hidden p-2 rounded-lg hover:bg-[var(--brand-light)]"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <div className="w-5 flex flex-col gap-1.5">
-            <span className={`block h-0.5 bg-[var(--ink)] transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`block h-0.5 bg-[var(--ink)] transition-all ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 bg-[var(--ink)] transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-          </div>
-        </button>
+        {/* Mobile — bell + hamburger */}
+        <div className="md:hidden flex items-center gap-2">
+          {user && <NotificationBell userId={user.id} />}
+          <button
+            className="p-2 rounded-lg hover:bg-[var(--brand-light)]"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <div className="w-5 flex flex-col gap-1.5">
+              <span className={`block h-0.5 bg-[var(--ink)] transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block h-0.5 bg-[var(--ink)] transition-all ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`block h-0.5 bg-[var(--ink)] transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            </div>
+          </button>
+        </div>
       </nav>
 
+      {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-[var(--border)] px-6 py-4 flex flex-col gap-2">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="text-[14px] text-[var(--ink-muted)] py-2 border-b border-[var(--border)] last:border-0" onClick={() => setMenuOpen(false)}>
+            <Link key={l.href} href={l.href}
+              className="text-[14px] text-[var(--ink-muted)] py-2 border-b border-[var(--border)] last:border-0"
+              onClick={() => setMenuOpen(false)}>
               {l.label}
             </Link>
           ))}
           <div className="flex flex-col gap-2 pt-2">
             {user ? (
               <>
-                <p className="text-[13px] font-medium text-[var(--ink)] px-1">{profileName ?? user.email}</p>
+                <Link href="/profil" onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 py-2">
+                  <div className="w-8 h-8 rounded-full bg-[var(--brand-light)] text-[var(--brand-dark)] flex items-center justify-center text-[12px] font-medium">
+                    {getInitials(displayName)}
+                  </div>
+                  <div>
+                    <p className="text-[13px] font-medium text-[var(--ink)]">{displayName}</p>
+                    {displayUsername && <p className="text-[11px] text-[var(--ink-muted)]">{displayUsername}</p>}
+                  </div>
+                </Link>
+                <Link href="/profil" onClick={() => setMenuOpen(false)}
+                  className="text-center text-[13px] py-2 border border-[var(--border)] rounded-lg text-[var(--ink-muted)]">
+                  Edit profil
+                </Link>
                 <button onClick={handleLogout} className="text-center text-[13px] py-2 border border-red-200 text-red-500 rounded-lg">Keluar</button>
               </>
             ) : (

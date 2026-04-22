@@ -44,13 +44,44 @@ const avatarColors = [
 
 export default function ForumThreadList({ threads, commentCounts, user }: Props) {
   const [activeCategory, setActiveCategory] = useState("Semua");
+  const [search, setSearch] = useState("");
 
-  const filtered = activeCategory === "Semua"
-    ? threads
-    : threads.filter((t) => t.category === activeCategory);
+  const filtered = threads
+    .filter((t) => activeCategory === "Semua" || t.category === activeCategory)
+    .filter((t) => {
+      if (!search.trim()) return true;
+      const q = search.toLowerCase();
+      return t.title.toLowerCase().includes(q) || t.content.toLowerCase().includes(q);
+    });
 
   return (
     <>
+      {/* Search bar */}
+      <div className="px-6 py-3 border-b border-[var(--border)] bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-2 bg-[var(--surface-2)] border border-[var(--border)] rounded-xl px-3 py-2 focus-within:border-[var(--brand)] transition-colors">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="flex-shrink-0 text-[var(--ink-muted)]">
+              <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" strokeWidth="1.3"/>
+              <path d="M10 10L13.5 13.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+            </svg>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Cari thread atau topik..."
+              className="flex-1 text-[13px] bg-transparent focus:outline-none text-[var(--ink)] placeholder:text-[var(--ink-muted)]"
+            />
+            {search && (
+              <button onClick={() => setSearch("")} className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* Filter kategori */}
       <div className="border-b border-[var(--border)] bg-white px-6 sticky top-16 z-10">
         <div className="max-w-4xl mx-auto flex gap-1 overflow-x-auto py-3">

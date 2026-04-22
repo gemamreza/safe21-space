@@ -13,7 +13,7 @@ type Notif = {
 };
 
 export default function NotificationBell({ userId }: { userId: string }) {
-  const supabase = createClient();
+  const supabase = useRef(createClient()).current;
   const [notifs, setNotifs] = useState<Notif[]>([]);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -32,16 +32,11 @@ export default function NotificationBell({ userId }: { userId: string }) {
 
   useEffect(() => {
     fetchNotifs();
-    const channel = supabase
-      .channel(`notif-${userId}`)
-      .on("postgres_changes", {
-        event: "INSERT",
-        schema: "public",
-        table: "notifications",
-        filter: `user_id=eq.${userId}`,
-      }, () => fetchNotifs())
-      .subscribe();
-    return () => { supabase.removeChannel(channel); };
+
+    // Poll setiap 30 detik — lebih reliable dari realtime subscription
+    const interval = setInterval(fetchNotifs, 30000);
+
+    return () => clearInterval(interval);
   }, [userId]);
 
   // Tutup saat klik di luar

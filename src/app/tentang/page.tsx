@@ -236,10 +236,6 @@ export default async function TentangPage() {
               >
                 Kirim pesan
               </button>
-              <p className="text-[11px] text-[var(--ink-muted)]">
-                Form ini menggunakan Formspree. Ganti action URL dengan ID Formspree milikmu di{" "}
-                <a href="https://formspree.io" target="_blank" className="text-[var(--brand)]">formspree.io</a>.
-              </p>
             </form>
           </div>
         </section>
