@@ -169,7 +169,7 @@ export default async function HomePage() {
               Informasi yang hangat,<br />akurat, dan bisa dipercaya
             </h2>
             <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed mb-4">
-              Semua konten di website ini disusun berdasarkan panduan dari WHO, CDC, National Down Syndrome Society (NDSS), dan Ikatan Dokter Anak Indonesia (IDAI).
+              Semua konten di website ini disusun berdasarkan panduan dari WHO, CDC, National Down Syndrome Society (NDSS), NIH/NICHD, dan American Academy of Pediatrics (AAP).
             </p>
             <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed mb-6">
               Kami percaya bahwa setiap keluarga berhak mendapat informasi yang jelas dan mendukung, tanpa stigma, tanpa rasa takut.
@@ -180,7 +180,7 @@ export default async function HomePage() {
           </div>
           <div className="flex flex-col gap-4">
             {[
-              { n: "1 : 700", d: "Setiap 1 dari 700 kelahiran — DS lebih umum dari yang banyak orang kira", src: "WHO" },
+              { n: "1:1.000", d: "Setiap 1 dari 1.000–1.100 kelahiran di seluruh dunia — DS lebih umum dari yang banyak orang kira", src: "WHO" },
               { n: "3 tipe", d: "Trisomi 21, Translokasi, dan Mosaik — masing-masing dengan karakteristik berbeda", src: "Genetika" },
               { n: "Intervensi dini", d: "Semakin awal terapi dimulai, semakin besar dampaknya bagi tumbuh kembang anak", src: "NDSS" },
             ].map((item) => (

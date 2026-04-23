@@ -1,4 +1,7 @@
 {
+  "/forum/[id]/page": "app/forum/[id]/page.js",
+  "/forum/page": "app/forum/page.js",
   "/page": "app/page.js",
-  "/auth/page": "app/auth/page.js"
+  "/screening/page": "app/screening/page.js",
+  "/panduan/page": "app/panduan/page.js"
 }

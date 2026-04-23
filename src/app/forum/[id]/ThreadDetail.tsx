@@ -307,6 +307,17 @@ export default function ThreadDetail({ thread, comments, currentUserId, currentU
                             <div className="flex items-center gap-1 pl-1">
                               <span className="text-[10px] text-[var(--ink-muted)]">{timeAgo(reply.created_at)}</span>
                               {reply.edited_at && <span className="text-[10px] text-[var(--ink-muted)] italic">· diedit</span>}
+                              {currentUserId && editingComment !== reply.id && (
+                                <button
+                                  onClick={() => setReplyTo({ id: comment.id, authorName: rp.full_name ?? "Anggota", username: rp.username })}
+                                  className="flex items-center gap-1 text-[10px] text-[var(--ink-muted)] hover:text-[var(--brand)] px-2 py-0.5 rounded transition-colors"
+                                >
+                                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                    <path d="M8.5 1.5H1.5a.7.7 0 00-.7.7v3.8a.7.7 0 00.7.7h.7l1.3 1.3 1.3-1.3H8.5a.7.7 0 00.7-.7V2.2a.7.7 0 00-.7-.7z" stroke="currentColor" strokeWidth="1"/>
+                                  </svg>
+                                  Reply
+                                </button>
+                              )}
                               {isReplyOwn && editingComment !== reply.id && (
                                 <>
                                   <button onClick={() => startEditComment(reply)} className="text-[10px] text-[var(--ink-muted)] hover:text-[var(--brand)] px-2 py-0.5 rounded transition-colors">Edit</button>
@@ -321,8 +332,8 @@ export default function ThreadDetail({ thread, comments, currentUserId, currentU
                   </div>
                 )}
 
-                {/* Inline reply form */}
-                {replyTo?.id === comment.id && (
+                {/* Inline reply form — muncul untuk top-level dan reply */}
+                {replyTo && (replyTo.id === comment.id || commentReplies.some(r => r.id === replyTo.id)) && (
                   <div className="ml-12 mt-3">
                     <CommentForm
                       threadId={thread.id}

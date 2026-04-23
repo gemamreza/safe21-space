@@ -173,7 +173,7 @@ export default function EdukasiPage() {
             </div>
 
             <p className="text-[12px] text-[var(--ink-muted)] mt-6 text-center">
-              Sumber: WHO, National Down Syndrome Society (NDSS), CDC, IDAI
+              Sumber: WHO, CDC, National Down Syndrome Society (NDSS), NIH/NICHD, AAP
             </p>
           </div>
         </section>

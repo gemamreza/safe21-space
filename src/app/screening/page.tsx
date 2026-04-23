@@ -137,7 +137,7 @@ export default function ScreeningPage() {
               ))}
             </div>
             <p className="text-[12px] text-[var(--ink-muted)] mt-6 text-center">
-              Sumber: WHO, American College of Obstetricians and Gynecologists (ACOG), IDAI
+              Sumber: WHO, CDC, American College of Obstetricians and Gynecologists (ACOG), NIH/NICHD
             </p>
           </div>
         </section>

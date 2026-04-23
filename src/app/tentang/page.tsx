@@ -137,7 +137,7 @@ export default async function TentangPage() {
                 { name: "WHO", full: "World Health Organization" },
                 { name: "NDSS", full: "National Down Syndrome Society" },
                 { name: "CDC", full: "Centers for Disease Control" },
-                { name: "IDAI", full: "Ikatan Dokter Anak Indonesia" },
+                { name: "AAP", full: "American Academy of Pediatrics" },
                 { name: "ACOG", full: "American College of OB-GYN" },
                 { name: "Kemenkes RI", full: "Kementerian Kesehatan RI" },
               ].map((s) => (
@@ -194,7 +194,7 @@ export default async function TentangPage() {
               Masukan, koreksi konten, atau sekadar ingin menyapa — tulis di form ini atau langsung bergabung ke forum.
             </p>
             <form
-              action="https://formspree.io/f/mvzdkqar"
+              action="https://formspree.io/f/GANTI_DENGAN_ID_FORMSPREE_KAMU"
               method="POST"
               className="bg-[var(--surface-2)] border border-[var(--border)] rounded-2xl p-6 flex flex-col gap-4"
             >
@@ -236,6 +236,10 @@ export default async function TentangPage() {
               >
                 Kirim pesan
               </button>
+              <p className="text-[11px] text-[var(--ink-muted)]">
+                Form ini menggunakan Formspree. Ganti action URL dengan ID Formspree milikmu di{" "}
+                <a href="https://formspree.io" target="_blank" className="text-[var(--brand)]">formspree.io</a>.
+              </p>
             </form>
           </div>
         </section>

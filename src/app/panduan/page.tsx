@@ -134,7 +134,7 @@ export default async function PanduanPage() {
               </div>
             )}
             <p className="text-[12px] text-[var(--ink-muted)] mt-6">
-              Sumber: NDSS, CDC, Early Intervention Program (EIP), IDAI, Kementerian Pendidikan RI
+              Sumber: NDSS, CDC, NIH/NICHD, AAP, Kementerian Pendidikan RI (Permendiknas No. 70/2009)
             </p>
           </div>
         </section>
