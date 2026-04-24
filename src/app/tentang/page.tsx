@@ -236,11 +236,57 @@ export default async function TentangPage() {
               >
                 Kirim pesan
               </button>
-              <p className="text-[11px] text-[var(--ink-muted)]">
-                Form ini menggunakan Formspree. Ganti action URL dengan ID Formspree milikmu di{" "}
-                <a href="https://formspree.io" target="_blank" className="text-[var(--brand)]">formspree.io</a>.
-              </p>
             </form>
+          </div>
+        </section>
+
+        {/* ── PRIVACY POLICY ──────────────────────────────── */}
+        <section id="privasi" className="py-14 px-6 border-t border-[var(--border)] bg-[var(--surface-2)]">
+          <div className="max-w-2xl mx-auto">
+            <h2
+              className="text-[26px] text-[var(--ink)] mb-2"
+              style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400 }}
+            >
+              Kebijakan Privasi
+            </h2>
+            <p className="text-[13px] text-[var(--ink-muted)] mb-8">Terakhir diperbarui: April 2025</p>
+
+            <div className="flex flex-col gap-6">
+              <div>
+                <h3 className="text-[15px] font-medium text-[var(--ink)] mb-2">Data yang kami kumpulkan</h3>
+                <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed">
+                  Saat kamu mendaftar, kami menyimpan nama, username, dan alamat email. Jika mendaftar via Google, kami menerima nama dan email dari akun Google kamu. Kami tidak mengumpulkan data finansial, alamat fisik, nomor telepon, atau informasi sensitif lainnya.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-[15px] font-medium text-[var(--ink)] mb-2">Bagaimana data digunakan</h3>
+                <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed">
+                  Data digunakan hanya untuk mengelola akun kamu di Safe21.space — menampilkan nama di forum, mengirim notifikasi yang relevan, dan memungkinkan kamu berinteraksi dengan komunitas. Kami tidak menggunakan data untuk iklan atau profiling.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-[15px] font-medium text-[var(--ink)] mb-2">Data tidak dijual</h3>
+                <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed">
+                  Kami tidak menjual, menyewakan, atau membagikan data pribadi kamu ke pihak ketiga untuk tujuan komersial. Data disimpan secara aman di Supabase dengan enkripsi standar industri.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-[15px] font-medium text-[var(--ink)] mb-2">Hapus akun</h3>
+                <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed">
+                  Kamu dapat meminta penghapusan akun dan seluruh data kamu kapan saja dengan menghubungi kami melalui form di atas. Kami akan memproses permintaan dalam 7 hari kerja.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-[15px] font-medium text-[var(--ink)] mb-2">Pertanyaan</h3>
+                <p className="text-[14px] text-[var(--ink-muted)] leading-relaxed">
+                  Jika ada pertanyaan tentang privasi, hubungi kami melalui form kontak di atas atau email langsung ke pengelola Safe21.space.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 

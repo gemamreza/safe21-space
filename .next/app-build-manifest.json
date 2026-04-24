@@ -16,20 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/forum/page.js"
     ],
-    "/forum/[id]/page": [
+    "/tentang/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/forum/[id]/page.js"
-    ],
-    "/screening/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/screening/page.js"
-    ],
-    "/panduan/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/panduan/page.js"
+      "static/chunks/app/tentang/page.js"
     ]
   }
 }

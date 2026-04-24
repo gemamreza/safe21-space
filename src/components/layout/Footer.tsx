@@ -20,10 +20,6 @@ export default function Footer() {
           <p className="text-[13px] text-white/50 leading-relaxed max-w-[220px]">
             Komunitas orang tua anak Down Syndrome — saling mendukung, saling menguatkan.
           </p>
-          <div className="flex gap-2 mt-5 flex-wrap">
-            <span className="text-[11px] text-white/40 border border-white/10 px-3 py-1 rounded-full">Informasi terverifikasi</span>
-            <span className="text-[11px] text-white/40 border border-white/10 px-3 py-1 rounded-full">Non-profit</span>
-          </div>
         </div>
         {cols.map((col) => (
           <div key={col.title}>
@@ -39,7 +35,7 @@ export default function Footer() {
         ))}
       </div>
       <div className="border-t border-white/10 max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
-        <p className="text-[12px] text-white/30">© 2025 Safe21.space. Dibuat dengan cinta untuk seluruh keluarga DS.</p>
+        <p className="text-[12px] text-white/30">© 2026 Safe21.space. Dibuat dengan cinta untuk seluruh keluarga DS.</p>
         <div className="flex gap-4">
           <Link href="#" className="text-[12px] text-white/30 hover:text-white/60 transition-colors">Privasi</Link>
           <Link href="#" className="text-[12px] text-white/30 hover:text-white/60 transition-colors">Kontak</Link>

@@ -23,10 +23,12 @@ export default async function ForumPage() {
       content,
       category,
       created_at,
+      is_pinned,
       profiles (
         full_name
       )
     `)
+    .order("is_pinned", { ascending: false })
     .order("created_at", { ascending: false });
 
   const { data: commentCounts } = await supabase

@@ -11,6 +11,7 @@ type Thread = {
   content: string;
   category: string;
   created_at: string;
+  is_pinned?: boolean;
   profiles: { full_name?: string } | { full_name?: string }[] | null;
 };
 
@@ -170,7 +171,11 @@ export default function ForumThreadList({ threads, commentCounts, user }: Props)
                   <Link
                     key={thread.id}
                     href={`/forum/${thread.id}`}
-                    className="group bg-white border border-[var(--border)] rounded-2xl p-5 hover:border-[var(--brand)] transition-all duration-200 flex gap-4 items-start"
+                    className={`group bg-white border rounded-2xl p-5 hover:border-[var(--brand)] transition-all duration-200 flex gap-4 items-start ${
+                      thread.is_pinned
+                        ? "border-[var(--brand)] bg-[var(--brand-light)]"
+                        : "border-[var(--border)]"
+                    }`}
                   >
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center text-[12px] font-medium flex-shrink-0 ${avatarColors[i % avatarColors.length]}`}>
                       {getInitials(authorName)}
@@ -180,6 +185,11 @@ export default function ForumThreadList({ threads, commentCounts, user }: Props)
                         <span className="text-[13px] font-medium text-[var(--ink)]">{authorName}</span>
                         <span className="text-[12px] text-[var(--ink-muted)] flex-shrink-0 ml-2">{timeAgo(thread.created_at)}</span>
                       </div>
+                      {thread.is_pinned && (
+                        <div className="flex items-center gap-1 mb-1">
+                          <span className="text-[11px] font-medium text-[var(--brand)]">📌 Disematkan</span>
+                        </div>
+                      )}
                       <h3 className="text-[15px] font-medium text-[var(--ink)] group-hover:text-[var(--brand)] transition-colors mb-1 leading-snug">
                         {thread.title}
                       </h3>
