@@ -194,7 +194,7 @@ export default async function TentangPage() {
               Masukan, koreksi konten, atau sekadar ingin menyapa — tulis di form ini atau langsung bergabung ke forum.
             </p>
             <form
-              action="https://formspree.io/f/GANTI_DENGAN_ID_FORMSPREE_KAMU"
+              action="https://formspree.io/f/mvzdkqar"
               method="POST"
               className="bg-[var(--surface-2)] border border-[var(--border)] rounded-2xl p-6 flex flex-col gap-4"
             >
